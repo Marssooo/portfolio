@@ -1,0 +1,50 @@
+<div class="header">
+  <div class="header--menu">
+    <button
+      tuiButton
+      tuiChevron
+      tuiDropdownOpen
+      type="button"
+      appearance="outline"
+      [tuiDropdown]="content"
+      style="color: var(--tui-text-primary-on-accent-1)"
+    >
+      Parcourir
+    </button>
+  </div>
+  <div class="header--title">
+    <h2>Marceau DECAMPS</h2>
+  </div>
+  <div class="header--options">
+    Dark mode enabled: {{ darkMode() }}
+    <button tuiButton type="button" (click)="darkMode.set(!darkMode())">
+      Toggle
+    </button>
+  </div>
+</div>
+
+{{ test }}
+
+<ng-template #content>
+  <tui-data-list role="menu">
+    @for (theme of themes; track $index) {
+      <tui-opt-group [label]="theme.label">
+        @for (item of theme.items; track $index) {
+          <a
+            #rla="routerLinkActive"
+            role="menuitemradio"
+            routerLinkActive
+            tuiOption
+            [attr.aria-checked]="rla.isActive"
+            [routerLink]="item.routerLink"
+          >
+            {{ item.label }}
+            @if (rla.isActive) {
+              <tui-icon icon="@tui.check" />
+            }
+          </a>
+        }
+      </tui-opt-group>
+    }
+  </tui-data-list>
+</ng-template>
